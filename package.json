@@ -9,7 +9,7 @@
     "main": "lib/index.js",
     "files": [
         "lib/",
-        "testbed/"
+        "src/"
     ],
     "author": "Makinori Ikegami",
     "contributors": [{
@@ -35,8 +35,6 @@
         "vinyl-transform": "^1.0.0"
     },
     "scripts": {
-        "test": "mocha test/*.js",
-        "dist": "gulp",
-        "testbed": "nodemon testbed/server.js"
+        "run-gui": "nodemon src/server.js"
     }
 }

@@ -3,8 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="user-scalable=no, width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
-    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/testbed/styles.css" />
+    <link rel="stylesheet" href="/src/styles.css" />
     <title>Planck.js — 2D physics engine for JavaScript/HTML5 game development</title>
   </head>
 
@@ -14,10 +13,6 @@
       <h3> sample games </h3>
 
       <canvas id="stage"></canvas>
-
-
-
-
 
       <div id="status"></div>
 
@@ -32,15 +27,12 @@
         <button id="tickbtn" class="fa fa-next fa-small" style="display: none;"></button>
 
         <button id="reloadbtn" class="fa fa-refresh fa-small"></button>
-        <select id="dropdown">
-          <option selected disabled hidden value=''>Select...</option>
-          {{#examples}}<option value="{{url}}" {{#selected}}selected{{/selected}}>{{name}}</option>{{/examples}}
-        </select>
       </div>
+
 
     </div>
     <script src="/dist/planck-with-testbed.js"></script>
-    <script src="/testbed/client.js"></script>
+    <script src="/src/client.js"></script>
     <script src="{{{script}}}"></script>
   </body>
 </html>
