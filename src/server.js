@@ -16,15 +16,12 @@ app.use(Express.static(Path.resolve(__dirname, '..')));
 
 
 app.get('/', function (req, res, next) {
-
-    //var script = '/example/Bridge.js';
   var script = '/src/puzzle/test.js';
   var page = Handlebars.compile(FS.readFileSync('./src/index.hbs') + '');
   
   res.send(page({
     script: script
   }));  
-
 });
 
 

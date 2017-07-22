@@ -20,7 +20,7 @@
   var _testbed = planck.testbed;
   planck.testbed = function(opts, callback) {
     _testbed(opts, function(testbed) {
-
+      
       playbtn.onclick = function() {
         testbed.isPaused() ? testbed.resume() : testbed.pause();
       };

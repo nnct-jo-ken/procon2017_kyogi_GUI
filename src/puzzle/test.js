@@ -17,57 +17,35 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-planck.testbed('Bridge', function(testbed) {
-  var pl = planck, Vec2 = pl.Vec2;
-  var world = new pl.World(Vec2(0, -4));
+// TODO_ERIN test joints on compounds.
+planck.testbed('CompoundShapes', function(testbed) {
+  var pl = planck, Vec2 = pl.Vec2, Transform = pl.Transform;
+  var world = new pl.World(Vec2(0, -10));
 
-  var e_count = 30
+  world.createBody(Vec2(0.0, 0.0)).createFixture(pl.Edge(Vec2(50.0, 0.0), Vec2(-50.0, 0.0)), 0.0);
 
-  var middle;
 
-  var ground = world.createBody();
-  ground.createFixture(pl.Edge(Vec2(-40.0, 0.0), Vec2(40.0, 0.0)), 0.0);
+  var xf1 = pl.Transform();
+  xf1.q.set(0.3524 * Math.PI);
+  xf1.p = xf1.q.getXAxis();
 
-  var shape = pl.Box(0.5, 0.125);
+  var triangle1 = pl.Polygon(Transform.mul(xf1, [Vec2(-1.0, 0.0), Vec2(1.0, 0.0), Vec2(0.0, 0.5)]));
 
-  var fd = {};
-  fd.density = 20.0;
-  fd.friction = 0.2;
+  var xf2 = pl.Transform();
+  xf2.q.set(-0.3524 * Math.PI);
+  xf2.p = Vec2.neg(xf2.q.getXAxis());
 
-  var jd = {};
+  var triangle2 = pl.Polygon(Transform.mul(xf2, [Vec2(-1.0, 0.0), Vec2(1.0, 0.0), Vec2(0.0, 0.5)]));
 
-  var prevBody = ground;
-  for (var i = 0; i < e_count; ++i) {
-    var body = world.createDynamicBody(Vec2(-14.5 + 1.0 * i, 5.0));
-    body.createFixture(shape, fd);
-
-    var anchor = Vec2(-15.0 + 1.0 * i, 5.0);
-    world.createJoint(pl.RevoluteJoint(jd, prevBody, body, anchor));
-
-    if (i == (e_count >> 1)) {
-      middle = body;
-    }
-    prevBody = body;
+  for (var i = 0; i < 10; ++i) {
+    var body = world.createDynamicBody({
+      position : Vec2(pl.Math.random(-0.1, 0.1), 2.05 + 2.5 * i),
+      angle : 0.0
+    });
+    body.createFixture(triangle1, 2.0);
+    body.createFixture(triangle2, 2.0);
   }
 
-  var anchor = Vec2(-15.0 + 1.0 * e_count, 5.0);
-  world.createJoint(pl.RevoluteJoint(jd, prevBody, ground, anchor));
-
-  for (var i = 0; i < 2; ++i) {
-    var body = world.createDynamicBody(Vec2(-8.0 + 8.0 * i, 12.0));
-
-    var vertices = [];
-    vertices[0] = Vec2(-0.5, 0.0);
-    vertices[1] = Vec2(0.5, 0.0);
-    vertices[2] = Vec2(0.0, 1.5);
-    body.createFixture(pl.Polygon(vertices), 1.0);
-  }
-
-  var shape = pl.Circle(0.5);
-  for (var i = 0; i < 3; ++i) {
-    var body = world.createDynamicBody(Vec2(-6.0 + 6.0 * i, 10.0));
-    body.createFixture(shape, 1.0);
-  }
 
   return world;
 });
