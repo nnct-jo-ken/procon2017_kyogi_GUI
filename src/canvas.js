@@ -1,30 +1,64 @@
 
+// constant
 var canvas_name = "canvas";
 
-var canvas_width ; 
-var canvas_height; 
+// params
+var synth_canvas = null;
 
 
+// test
+var test_piece1 = [{x:20,y:20}, {x:100,y:50}, {x:50,y:100},{x:0,y:90}];
+
+var synth_json1 = "";
+
+
+
+// laod when page loaded
+function init_canvas(){
+  var canvas = document.getElementById(canvas_name);
+
+  if (canvas.getContext){
+    var ctx = canvas.getContext('2d');
+    
+    synth_canvas = new SynthCanvas(ctx);
+  }
+}
+
+// 
 function draw_to_canvas(){
-    var canvas = document.getElementById(canvas_name);
+  synth_canvas.draw_piece(test_piece1);
+}
 
-    if (canvas.getContext){
-        canvas_width = canvas.clientWidth;
-        var ctx = canvas.getContext('2d');
+// draw synth
+class SynthCanvas{
+  constructor(ctx){
+    this.ctx = ctx;
+    this.init_canvas();
+  }
 
-        
-        draw_pieces(ctx);
+  init_canvas(){
+    this.ctx.pathStyle = "#fff";
+  }
+
+  draw_piece(piece){
+    this.draw_polygon(piece);
+  }
+  
+  draw_polygon(point_list){
+
+    for(var i in point_list){
+      this.ctx.lineTo(point_list[i].x, point_list[i].y);
     }
+
+    this.ctx.closePath();
+    this.ctx.stroke();
+  }
 }
 
 
-function draw_pieces(ctx){
-/*
-    ctx.fillRect(50,50,300,200);
-    ctx.clearRect(120,80,200,140);
-    ctx.strokeRect(200,20,180,260);
-*/
-    ctx.beginPath();
-    ctx.arc(Math.random()*canvas_width, 100,50, 0,Math.PI*2, false);
-    ctx.stroke();
+class Synth{
+  constructor(synth){
+    this.piece1 = "";
+    this.piece2 = "";
+  }
 }
