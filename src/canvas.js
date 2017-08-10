@@ -35,10 +35,11 @@ class Canvas{
 
     // design
     this.ctx.pathStyle = "#fff";
-    this.ctx.fillStyle = "rgb(200, 0, 0)";
+    this.ctx.fillStyle = "#6699ff";
+    this.ctx.font = "14px ''";
 
     //user
-    this.background_style = "#ffffcc";
+    this.background_style = "#ccffff";
 
   }
   
@@ -62,6 +63,10 @@ class Canvas{
     this.ctx.fill();
     this.ctx.stroke();
   }
+
+  draw_text(x,y,text){
+    this.ctx.strokeText(text, x, y);
+  }
 }
 
 
@@ -70,7 +75,9 @@ class SynthCanvas extends Canvas{
 
   draw_piece(piece){
     this.reset_screen();
+
     this.draw_polygon(piece);
+    this.draw_text(10,200,"ああああ");
 
   }
 
